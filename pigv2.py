@@ -183,24 +183,26 @@ class TimedGameProxy(Game):
 #Main function instantiates 2 players, one die and one game objects.
 def main():
 
+    #Arg Parse can be used to pass computer or human player options.
     parser = argparse.ArgumentParser()
     parser.add_argument("--player1", help='option "h" for human, "c" for computer')
     parser.add_argument("--player2", help='option "h" for human, "c" for computer')
     parser.add_argument("--timed", help='option "t" for 60 second game')
     args = parser.parse_args()
 
-
+    #Options are passed to PlayFactory class that then instantiates the players.
     factory = PlayerFactory()
     player1 = factory.createPlayer(args.player1)
     player2 = factory.createPlayer(args.player2)
 
     die = Die()
 
+    #If the Timed options is passed, the TimedGameProxy is called to start timer and instaniate game.
     if args.timed is None:
         Game(player1, player2, die)
+
     elif args.timed == "t":
         print "THIS IS 60 SECOND TIMED GAME"
-
         TimedGameProxy(player1, player2, die)
 
 
